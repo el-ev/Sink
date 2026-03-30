@@ -19,14 +19,6 @@
     "dark": "Sombre",
     "system": "Système"
   },
-  "login": {
-    "title": "Connexion",
-    "description": "Entrez votre jeton pour vous connecter",
-    "tips": "Astuces",
-    "preview_token": "Le jeton du site pour le mode aperçu est",
-    "submit": "Connexion",
-    "failed": "Échec de la connexion, veuillez réessayer"
-  },
   "logout": {
     "title": "Déconnexion ?",
     "confirm": "Êtes-vous sûr de vouloir vous déconnecter ?",

@@ -19,14 +19,6 @@
     "dark": "深色",
     "system": "跟隨系統"
   },
-  "login": {
-    "title": "登入",
-    "description": "請輸入站點密碼以登入",
-    "tips": "提示",
-    "preview_token": "預覽模式的站點密碼是",
-    "submit": "登入",
-    "failed": "登入失敗，請重試"
-  },
   "logout": {
     "title": "登出？",
     "confirm": "確定要登出嗎？",

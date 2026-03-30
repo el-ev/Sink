@@ -2,8 +2,7 @@
 import { LogOut } from 'lucide-vue-next'
 
 function logOut() {
-  localStorage.removeItem('SinkSiteToken')
-  navigateTo('/dashboard/login')
+  window.location.assign('/api/_auth/logout')
 }
 </script>
 

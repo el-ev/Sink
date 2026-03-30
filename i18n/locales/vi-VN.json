@@ -19,14 +19,6 @@
     "dark": "Tối",
     "system": "Hệ thống"
   },
-  "login": {
-    "title": "Đăng nhập",
-    "description": "Nhập token của trang để đăng nhập",
-    "tips": "Mẹo",
-    "preview_token": "Token của chế độ xem trước là",
-    "submit": "Đăng nhập",
-    "failed": "Đăng nhập thất bại, vui lòng thử lại"
-  },
   "logout": {
     "title": "Đăng xuất?",
     "confirm": "Bạn có chắc chắn muốn đăng xuất không?",

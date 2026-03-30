@@ -1,15 +1,31 @@
-export default eventHandler((event) => {
-  const token = getHeader(event, 'Authorization')?.replace(/^Bearer\s+/, '')
-  if (event.path.startsWith('/api/') && !event.path.startsWith('/api/_') && token !== useRuntimeConfig(event).siteToken) {
+import {
+  getFullPath,
+  getOidcConfig,
+  getSessionFromCookie,
+  isProtectedPagePath,
+} from '@@/server/utils/oidc'
+
+export default eventHandler(async (event) => {
+  const isApi = event.path.startsWith('/api/')
+  const isAuthApi = event.path.startsWith('/api/_auth/')
+  const isProtectedApi = isApi && !isAuthApi
+  const isProtectedPage = !isApi && isProtectedPagePath(event.path)
+
+  if (!isProtectedApi && !isProtectedPage)
+    return
+
+  const { clientSecret } = getOidcConfig(event)
+  const session = await getSessionFromCookie(event, clientSecret)
+
+  if (session)
+    return
+
+  if (isProtectedApi) {
     throw createError({
-      status: 401,
-      statusText: 'Unauthorized',
+      statusCode: 401,
+      statusMessage: 'Unauthorized',
     })
   }
-  if (token && token.length < 8) {
-    throw createError({
-      status: 401,
-      statusText: 'Token is too short',
-    })
-  }
+
+  return sendRedirect(event, `/api/_auth/login?redirect=${encodeURIComponent(getFullPath(event))}`)
 })

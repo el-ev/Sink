@@ -1,19 +1,23 @@
+function isProtectedPath(path: string) {
+  return path === '/new' || path === '/dashboard' || path.startsWith('/dashboard/')
+}
+
+function startOidc(path: string) {
+  window.location.assign(`/api/_auth/login?redirect=${encodeURIComponent(path)}`)
+}
+
 export default defineNuxtRouteMiddleware(async (to) => {
   if (import.meta.server)
     return
 
-  if (to.path.startsWith('/dashboard') && to.path !== '/dashboard/login') {
-    if (!window.localStorage.getItem('SinkSiteToken'))
-      return navigateTo('/dashboard/login')
-  }
+  if (!isProtectedPath(to.path))
+    return
 
-  if (to.path === '/dashboard/login') {
-    try {
-      await useAPI('/api/verify')
-      return navigateTo('/dashboard')
-    }
-    catch (e) {
-      console.warn(e)
-    }
+  try {
+    await $fetch('/api/_auth/session')
+  }
+  catch {
+    startOidc(to.fullPath || to.path)
+    return abortNavigation()
   }
 })

@@ -20,7 +20,12 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    siteToken: 'SinkCool',
+    oidcClientId: '',
+    oidcClientSecret: '',
+    oidcIssuer: '',
+    oidcScopes: 'openid email profile',
+    oidcAllowedEmails: '',
+    oidcAllowedDomains: '',
     redirectStatusCode: '301',
     linkCacheTtl: 60,
     redirectWithQuery: false,

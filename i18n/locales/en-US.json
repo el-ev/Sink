@@ -19,14 +19,6 @@
     "dark": "Dark",
     "system": "System"
   },
-  "login": {
-    "title": "Login",
-    "description": "Enter your site token to login",
-    "tips": "Tips",
-    "preview_token": "The site token for preview mode is",
-    "submit": "Login",
-    "failed": "Login failed, please try again"
-  },
   "logout": {
     "title": "LogOut?",
     "confirm": "Are you sure you want to log out?",
