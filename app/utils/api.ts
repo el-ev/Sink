@@ -10,7 +10,9 @@ function redirectToLogin(path: string) {
 }
 
 export function useAPI(api: string, options?: object): Promise<unknown> {
-  return $fetch(api, defu(options || {}, {})).catch((error) => {
+  return $fetch(api, defu(options || {}, {
+    credentials: 'include',
+  })).catch((error) => {
     if (error?.status === 401 && import.meta.client) {
       const path = window.location.pathname + window.location.search
       if (isProtectedPath(window.location.pathname)) {

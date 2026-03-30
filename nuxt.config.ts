@@ -48,8 +48,12 @@ export default defineNuxtConfig({
     '/': {
       prerender: true,
     },
+    '/new': {
+      prerender: false,
+      ssr: false,
+    },
     '/dashboard/**': {
-      prerender: true,
+      prerender: false,
       ssr: false,
     },
     '/dashboard': {

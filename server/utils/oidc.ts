@@ -316,7 +316,24 @@ export async function getSessionFromCookie(event: H3Event, secret: string): Prom
   if (!cookie)
     return null
 
-  const [payload, signature] = cookie.split('.')
+  let normalized = cookie.trim()
+
+  if (normalized.startsWith('"') && normalized.endsWith('"')) {
+    normalized = normalized.slice(1, -1)
+  }
+
+  try {
+    normalized = decodeURIComponent(normalized)
+  }
+  catch {
+  }
+
+  const dot = normalized.lastIndexOf('.')
+  if (dot <= 0)
+    return null
+
+  const payload = normalized.slice(0, dot)
+  const signature = normalized.slice(dot + 1)
   if (!payload || !signature)
     return null
 

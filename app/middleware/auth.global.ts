@@ -14,7 +14,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return
 
   try {
-    await $fetch('/api/_auth/session')
+    await $fetch('/api/_auth/session', {
+      credentials: 'include',
+    })
   }
   catch {
     startOidc(to.fullPath || to.path)
