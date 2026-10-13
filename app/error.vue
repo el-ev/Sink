@@ -1,13 +1,24 @@
 <script setup>
-import errorImage from './assets/images/404.svg?raw'
+const props = defineProps({
+  error: Object,
+})
+
+const statusCode = computed(() => props.error?.statusCode || 404)
+const message = computed(() => statusCode.value === 404 ? 'Page Not Found' : (props.error?.statusMessage || 'Something went wrong'))
+
+useHead({
+  title: computed(() => `${statusCode.value} - ${message.value}`),
+})
 </script>
 
 <template>
-  <NuxtLayout name="default">
-    <a
-      class="w-full h-full max-w-[600px] mx-auto flex items-center justify-center [&_svg]:w-full"
-      href="/"
-      v-html="errorImage"
-    />
-  </NuxtLayout>
+  <main class="flex flex-col items-center justify-center min-h-screen gap-4 p-4 text-center">
+    <h1 class="text-6xl font-bold">
+      {{ statusCode }}
+    </h1>
+    <p class="text-lg text-muted-foreground">
+      {{ message }}
+    </p>
+    <a href="/" class="underline underline-offset-4">Go home</a>
+  </main>
 </template>
